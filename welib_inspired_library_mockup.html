@@ -1,0 +1,295 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#2d6a4f;--gl:#40916c;--gs:#d8f3dc;--ga:#52b788;
+  --bg:#ffffff;--bg2:#f8f9fa;--tx:#1a1a1a;--txm:#6b7280;--txl:#9ca3af;
+  --br:#e5e7eb;--br2:#d1d5db;
+  --ff:'Inter',system-ui,sans-serif;
+}
+body{font-family:var(--ff);background:var(--bg);color:var(--tx);font-size:14px}
+a{color:var(--g);text-decoration:none}
+
+/* NAV */
+.nav{display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid var(--br);position:sticky;top:0;background:#fff;z-index:20}
+.nav-logo{font-size:18px;font-weight:700;color:var(--g);letter-spacing:-0.5px}
+.nav-logo span{color:var(--txm);font-weight:400;font-size:12px;margin-left:6px}
+.nav-links{display:flex;gap:2px;margin-left:auto;align-items:center}
+.nav-link{padding:6px 10px;border-radius:6px;font-size:13px;color:var(--txm);cursor:pointer}
+.nav-link:hover{background:var(--bg2)}
+.nav-btn{padding:6px 14px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;background:var(--g);color:#fff;border:none}
+.upload-btn{padding:6px 14px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;background:transparent;color:var(--g);border:1.5px solid var(--g);margin-right:4px}
+
+/* HERO */
+.hero{padding:32px 20px 24px;max-width:860px;margin:0 auto;text-align:center}
+.hero-title{font-size:26px;font-weight:600;color:var(--tx);line-height:1.35;margin-bottom:8px}
+.hero-title em{color:var(--g);font-style:normal}
+.hero-sub{font-size:14px;color:var(--txm);line-height:1.6;max-width:560px;margin:0 auto 28px}
+
+/* SEARCH GRID */
+.search-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:760px;margin:0 auto}
+.search-box{border:1.5px solid var(--br2);border-radius:10px;padding:16px 18px;background:#fff;cursor:pointer}
+.search-box:hover{border-color:var(--ga)}
+.search-box-title{font-size:15px;font-weight:600;margin-bottom:4px}
+.search-box-sub{font-size:12px;color:var(--txm);margin-bottom:12px}
+.search-row{display:flex;gap:8px}
+.search-input{flex:1;padding:8px 12px;border:1px solid var(--br2);border-radius:7px;font-family:var(--ff);font-size:13px;color:var(--tx);background:var(--bg2);outline:none}
+.search-go{padding:8px 16px;background:var(--g);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap}
+
+/* SECTION */
+.section{padding:0 20px 24px;max-width:860px;margin:0 auto}
+.section-hd{display:flex;align-items:center;gap:8px;margin-bottom:16px;padding-top:24px;border-top:1px solid var(--br)}
+.section-hd-title{font-size:15px;font-weight:600}
+.pop-tabs{display:flex;gap:2px;margin-left:auto}
+.pop-tab{padding:4px 10px;border-radius:5px;font-size:12px;color:var(--txm);cursor:pointer}
+.pop-tab.on{background:var(--g);color:#fff}
+
+/* BOOK CARD */
+.book-card{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--br)}
+.book-card:last-child{border-bottom:none}
+.book-cover{width:72px;height:96px;object-fit:cover;border-radius:4px;flex-shrink:0;background:var(--gs);}
+.book-cover-ph{width:72px;height:96px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid var(--br)}
+.book-info{flex:1;min-width:0}
+.book-title{font-size:14px;font-weight:600;color:var(--g);margin-bottom:3px;line-height:1.3}
+.book-author{font-size:12px;color:var(--txm);margin-bottom:6px}
+.book-desc{font-size:12px;color:var(--txm);line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:8px}
+.book-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.fmt-pill{font-size:11px;font-weight:500;padding:2px 8px;border-radius:4px;border:1px solid var(--br2);color:var(--txm)}
+.meta-dot{color:var(--txl);font-size:11px}
+.meta-txt{font-size:11px;color:var(--txl)}
+.book-actions{display:flex;align-items:center;gap:6px;margin-top:10px}
+.act-btn{padding:5px 12px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--ff)}
+.act-dl{background:var(--g);color:#fff;border:none}
+.act-dl.locked{background:#f3f4f6;color:var(--txm);border:1px solid var(--br2)}
+.act-read{background:transparent;color:var(--g);border:1.5px solid var(--g)}
+.act-save{background:transparent;color:var(--txm);border:1px solid var(--br2)}
+.act-share{background:transparent;color:var(--txm);border:1px solid var(--br2)}
+.lock-icon{font-size:11px}
+
+/* CATEGORY BADGES */
+.cat-book{background:#fff8e1;color:#92400e;border:1px solid #fcd34d;font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px;letter-spacing:0.04em}
+.cat-paper{background:#ecfdf5;color:#065f46;border:1px solid #6ee7b7;font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px;letter-spacing:0.04em}
+.cat-exam{background:#eff6ff;color:#1e40af;border:1px solid #93c5fd;font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px;letter-spacing:0.04em}
+
+/* ACCESS BANNER */
+.access-bar{background:var(--gs);border:1px solid #b7e4c7;border-radius:8px;padding:10px 16px;display:flex;align-items:center;gap:10px;margin:0 20px 16px;max-width:820px;margin-left:auto;margin-right:auto}
+.access-bar-text{font-size:12px;color:#1b4332;flex:1}
+.access-bar-text strong{font-weight:600}
+.prog{height:4px;background:#b7e4c7;border-radius:10px;flex:1;overflow:hidden;max-width:120px}
+.prog-fill{height:100%;background:var(--g);width:40%;border-radius:10px}
+.access-link{font-size:12px;color:var(--g);font-weight:500;white-space:nowrap}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--br);padding:20px;display:flex;gap:24px;flex-wrap:wrap;max-width:860px;margin:0 auto}
+.footer-col{}
+.footer-col-title{font-size:12px;font-weight:600;color:var(--tx);margin-bottom:8px}
+.footer-link{display:block;font-size:12px;color:var(--txm);margin-bottom:4px}
+</style>
+
+<div>
+  <h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden">WeLib-inspired library design mockup for RwandaLib</h2>
+
+  <!-- NAV -->
+  <div class="nav">
+    <div class="nav-logo">📚 RwandaLib <span>Academic Library</span></div>
+    <div class="nav-links">
+      <div class="nav-link">Home</div>
+      <div class="nav-link">My Account</div>
+      <div class="nav-link">My Downloads</div>
+      <button class="upload-btn">+ Upload</button>
+      <button class="nav-btn">Log in / Register</button>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-title">Explore <em>Books, Past Papers & Research</em> for every level</div>
+    <div class="hero-sub">A curated collection of academic resources for Rwandan students and researchers. Share your documents to unlock free downloads for everyone.</div>
+
+    <div class="search-grid">
+      <div class="search-box">
+        <div class="search-box-title">📚 Full Library</div>
+        <div class="search-box-sub">Books, past exams, scientific papers &amp; more</div>
+        <div class="search-row">
+          <input class="search-input" type="text" placeholder="Search all documents…" value="">
+          <button class="search-go">Search</button>
+        </div>
+      </div>
+      <div class="search-box">
+        <div class="search-box-title">🔬 Academic Papers</div>
+        <div class="search-box-sub">Research papers and scientific publications</div>
+        <div class="search-row">
+          <input class="search-input" type="text" placeholder="Search papers by title…" value="">
+          <button class="search-go">Search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCESS PROGRESS BANNER -->
+  <div class="access-bar">
+    <span class="access-bar-text"><strong>Upload to unlock downloads.</strong> You've shared 2 of 5 documents needed for full access.</span>
+    <div class="prog"><div class="prog-fill"></div></div>
+    <span class="access-link">Upload now →</span>
+  </div>
+
+  <!-- MOST POPULAR SECTION -->
+  <div class="section">
+    <div class="section-hd">
+      <div class="section-hd-title">Most Popular</div>
+      <div class="pop-tabs">
+        <div class="pop-tab on">Today</div>
+        <div class="pop-tab">This Week</div>
+        <div class="pop-tab">This Month</div>
+        <div class="pop-tab">Surprise Me 🤞</div>
+      </div>
+    </div>
+
+    <!-- CARD 1 — accessible -->
+    <div class="book-card">
+      <div class="book-cover-ph" style="background:#d8f3dc">📗</div>
+      <div class="book-info">
+        <div style="display:flex;gap:6px;margin-bottom:5px">
+          <span class="cat-paper">SCIENTIFIC PAPER</span>
+          <span style="background:#ede9fe;color:#5b21b6;border:1px solid #c4b5fd;font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px">UNIVERSITY</span>
+        </div>
+        <div class="book-title">Advanced Organic Chemistry: Reaction Mechanisms</div>
+        <div class="book-author">Jean-Pierre Mugisha · University of Rwanda</div>
+        <div class="book-desc">A comprehensive guide to reaction mechanisms in organic chemistry for advanced undergraduate and graduate students. Covers substitution, elimination, addition, and rearrangement reactions with detailed mechanistic arrows.</div>
+        <div class="book-meta">
+          <span class="fmt-pill">pdf</span>
+          <span class="meta-dot">·</span>
+          <span class="meta-txt">English</span>
+          <span class="meta-dot">·</span>
+          <span class="meta-txt">2023</span>
+          <span class="meta-dot">·</span>
+          <span class="meta-txt">3.2 MB</span>
+        </div>
+        <div class="book-actions">
+          <button class="act-btn act-read">Read</button>
+          <button class="act-btn act-dl">Download</button>
+          <button class="act-btn act-share">Share</button>
+          <button class="act-btn act-save">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2 — locked -->
+    <div class="book-card">
+      <div class="book-cover-ph" style="background:#eff6ff">📘</div>
+      <div class="book-info">
+        <div style="display:flex;gap:6px;margin-bottom:5px">
+          <span class="cat-exam">PAST EXAM</span>
+          <span style="background:#fce7f3;color:#9d174d;border:1px solid #f9a8d4;font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px">SECONDARY</span>
+        </div>
+        <div class="book-title">Rwanda National Chemistry Exam — O-Level 2023</div>
+        <div class="book-author">Rwanda Education Board · Official Exam</div>
+        <div class="book-desc">Official Rwanda national examination paper for Ordinary Level Chemistry, 2023 sitting. Includes all sections with marking scheme. Essential preparation resource for O-level students.</div>
+        <div class="book-meta">
+          <span class="fmt-pill">pdf</span>
+          <span class="meta-dot">·</span>
+          <span class="meta-txt">English / Kinyarwanda</span>
+          <span class="meta-dot">·</span>
+          <span class="meta-txt">2023</span>
+          <span class="meta-dot">·</span>
+          <span class="meta-txt">1.1 MB</span>
+        </div>
+        <div class="book-actions">
+          <button class="act-btn act-read">Read</button>
+          <button class="act-btn act-dl locked"><span class="lock-icon">🔒</span> Download</button>
+          <button class="act-btn act-share">Share</button>
+          <button class="act-btn act-save">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3 — book -->
+    <div class="book-card">
+      <div class="book-cover-ph" style="background:#fff8e1">📙</div>
+      <div class="book-info">
+        <div style="display:flex;gap:6px;margin-bottom:5px">
+          <span class="cat-book">BOOK</span>
+          <span style="background:#f0fdf4;color:#166534;border:1px solid #86efac;font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px">UNIVERSITY</span>
+        </div>
+        <div class="book-title">Fundamentals of Mining Engineering: A Modern Approach</div>
+        <div class="book-author">Claude Uwimana, Steven Niyomugabo</div>
+        <div class="book-desc">An introduction to mining engineering principles including open-pit design, underground methods, ventilation systems, and mineral processing. Written for East African mining contexts with case studies from Rwanda and the DRC.</div>
+        <div class="book-meta">
+          <span class="fmt-pill">pdf</span>
+          <span class="meta-dot">·</span>
+          <span class="meta-txt">English</span>
+          <span class="meta-dot">·</span>
+          <span class="meta-txt">2024</span>
+          <span class="meta-dot">·</span>
+          <span class="meta-txt">8.7 MB</span>
+        </div>
+        <div class="book-actions">
+          <button class="act-btn act-read">Read</button>
+          <button class="act-btn act-dl">Download</button>
+          <button class="act-btn act-share">Share</button>
+          <button class="act-btn act-save">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 4 — locked primary -->
+    <div class="book-card">
+      <div class="book-cover-ph" style="background:#fce7f3">📕</div>
+      <div class="book-info">
+        <div style="display:flex;gap:6px;margin-bottom:5px">
+          <span class="cat-exam">PAST EXAM</span>
+          <span style="background:#fce7f3;color:#9d174d;border:1px solid #f9a8d4;font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px">PRIMARY</span>
+        </div>
+        <div class="book-title">Mathematics Primary Leaving Exam 2022 — Full Paper with Answers</div>
+        <div class="book-author">NESA Rwanda · National Exam</div>
+        <div class="book-desc">Complete Primary Leaving Examination mathematics paper from 2022, including worked solutions and marking guide. Ideal for P6 exam preparation across Rwanda.</div>
+        <div class="book-meta">
+          <span class="fmt-pill">pdf</span>
+          <span class="meta-dot">·</span>
+          <span class="meta-txt">English / Kinyarwanda</span>
+          <span class="meta-dot">·</span>
+          <span class="meta-txt">2022</span>
+          <span class="meta-dot">·</span>
+          <span class="meta-txt">0.8 MB</span>
+        </div>
+        <div class="book-actions">
+          <button class="act-btn act-read">Read</button>
+          <button class="act-btn act-dl locked"><span class="lock-icon">🔒</span> Download</button>
+          <button class="act-btn act-share">Share</button>
+          <button class="act-btn act-save">Save</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-col">
+      <div class="footer-col-title">RwandaLib</div>
+      <a class="footer-link">Home</a>
+      <a class="footer-link">Search</a>
+      <a class="footer-link">Upload a Document</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Account</div>
+      <a class="footer-link">Log in / Register</a>
+      <a class="footer-link">My Downloads</a>
+      <a class="footer-link">My Uploads</a>
+      <a class="footer-link">Download Requests</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Browse by category</div>
+      <a class="footer-link">📖 Books</a>
+      <a class="footer-link">🔬 Scientific Papers</a>
+      <a class="footer-link">📝 Past Exams</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Browse by level</div>
+      <a class="footer-link">Primary</a>
+      <a class="footer-link">Secondary</a>
+      <a class="footer-link">University</a>
+    </div>
+  </div>
+</div>

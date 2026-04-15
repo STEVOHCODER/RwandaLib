@@ -1,0 +1,157 @@
+// Prisma schema redesigned for a professional, saleable document-exchange library
+// Docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum DocumentCategory {
+  SCIENTIFIC_PAPER
+  BOOK
+  PAST_PAPER
+  OTHER
+}
+
+enum EducationLevel {
+  PRIMARY
+  SECONDARY
+  UNIVERSITY
+}
+
+enum BookType {
+  TEXTBOOK
+  REFERENCE
+  FICTION
+  NONFICTION
+}
+
+enum DocumentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  REMOVED
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id            Int               @id @default(autoincrement())
+  username      String            @unique
+  email         String?           @unique
+  passwordHash  String
+  role          Role              @default(USER)
+  credits       Int               @default(0) // can be used for purchases/downloads
+  uploads       Document[]        @relation("UserUploads")
+  requests      DownloadRequest[]
+  contributions Contribution[]
+  reviewedRequests DownloadRequest[] @relation("ReviewUser")
+  createdAt     DateTime          @default(now())
+
+  @@index([username])
+}
+
+model Document {
+  id              Int                @id @default(autoincrement())
+  title           String
+  subtitle        String?
+  authors         String?            // comma-separated
+  abstract        String?
+  category        DocumentCategory
+  educationLevel  EducationLevel?    // primary/secondary/university when applicable
+  bookType        BookType?          // when category == BOOK
+  
+  // Past Paper Specific Fields
+  subject         String?
+  examBoard       String?            // e.g. NESA, Cambridge
+  examSource      String?            // e.g. Official, School Name
+  markingSchemePath String?          // Link or path to marking scheme
+  
+  doi             String?            @unique
+  isbn            String?            @unique
+  publisher       String?
+  year            Int?
+  pages           Int?
+  language        String?            @default("en")
+  tags            String?            // comma-separated
+  priceCents      Int?               // nullable — null means free
+  filePath        String
+  coverPath       String?            // Optional cover image path
+  fileName        String
+  fileSize        Int
+  fileHash        String             @unique // strong duplicate prevention
+  
+  // Analytics
+  views           Int                @default(0)
+  downloads       Int                @default(0)
+  
+  aiScore         Float?             @default(0.0)
+  aiSummary       String?
+  status          DocumentStatus     @default(PENDING)
+  uploaderId      Int
+  uploader        User               @relation("UserUploads", fields: [uploaderId], references: [id])
+  requests        DownloadRequest[]
+  contributions    Contribution[]
+  createdAt       DateTime           @default(now())
+
+  @@index([category])
+  @@index([educationLevel])
+}
+
+// Analytics model for daily visits
+model Visit {
+  id        Int      @id @default(autoincrement())
+  date      DateTime @unique @default(now()) // Stored as YYYY-MM-DD
+  count     Int      @default(0)
+}
+
+// Records a user's contribution (successful upload). Business logic: user must have 5 APPROVED contributions to request downloads.
+model Contribution {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  documentId  Int      @unique
+  approved    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id])
+  document    Document @relation(fields: [documentId], references: [id])
+}
+
+model DownloadRequest {
+  id           Int           @id @default(autoincrement())
+  userId       Int
+  documentId   Int
+  status       RequestStatus @default(PENDING)
+  reason       String?       // why user needs the doc (helps admin decisions)
+  phoneNumber  String?       // contact info for admin to call
+  reviewedById Int?          // admin user id who reviewed
+  createdAt    DateTime      @default(now())
+
+  user         User          @relation(fields: [userId], references: [id])
+  document     Document      @relation(fields: [documentId], references: [id])
+  reviewedBy   User?         @relation("ReviewUser", fields: [reviewedById], references: [id])
+
+  @@unique([userId, documentId])
+  @@index([status])
+}
+
+// Simple table to mark detected duplicates (if fuzzy detection used)
+model DuplicateRecord {
+  id            Int      @id @default(autoincrement())
+  originalId    Int
+  duplicateId   Int
+  reason        String?
+  createdAt     DateTime @default(now())
+}
